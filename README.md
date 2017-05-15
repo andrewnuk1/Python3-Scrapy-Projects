@@ -7,4 +7,4 @@ Pipelines.py is the Scrapy Pipelines.py file which in my case allows the Spider 
 
 Standardcode.py is the standard style of Scrapy code i use where i can
 
-Selenium_example1.py is the Scrapy code is use where part of the webpage is dynamic(?) and a button to create a new part of the same webpage needs to be pressed
+Selenium_example1.py is the Scrapy code is use where part of the webpage is dynamic(?) hence we need to use selenium and a button to create a new part of the same webpage needs to be pressed
