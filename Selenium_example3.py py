@@ -13,16 +13,9 @@ class ebagsSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-#        n = 0
         for href in response.xpath('//*[@class="mainCon"]/div[@class="brandListCon"]/div[@class="brandList4Col"]/a/@href'):
            url = response.urljoin(href.extract())
-#           print(url)
-#           n = n+1
            yield scrapy.Request(url, callback=self.parse_dir_contents)
-#        print(n)
-#        exit()
-
-
 
     def __init__(self):
         self.driver = webdriver.Chrome("C:/Users/andrew/Downloads/chromedriver_win32/chromedriver.exe")
