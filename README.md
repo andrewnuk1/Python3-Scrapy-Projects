@@ -1,5 +1,5 @@
 # Python3-Scrapy-Projects
-Scrapy Projects i am working on under Python 3 - started April 2017.
+Scrapy Projects i am working on under Python 3 - started April 2017.  Python 2 projects ended in April 2017 except for Twitter.
 
 This repository now includes examples of the python3 scrapy code i use in my projects.
 
