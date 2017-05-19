@@ -18,7 +18,7 @@ class ebagsSpider(scrapy.Spider):
            yield scrapy.Request(url, callback=self.parse_dir_contents)
 
     def __init__(self):
-        self.driver = webdriver.Chrome("C:/Users/andrew/Downloads/chromedriver_win32/chromedriver.exe")
+        self.driver = webdriver.Chrome("C:<path to file>/chromedriver_win32/chromedriver.exe")
 
     def parse_dir_contents(self, response):
         count = 0
