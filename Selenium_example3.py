@@ -8,17 +8,44 @@ from scrapy.http import TextResponse
 class ebagsSpider(scrapy.Spider):
     name = "ebags"
     allowed_domains = ["ebags.com"]
-    start_urls = [
-        "https://www.ebags.com/brands",        
-    ]
+    start_urls = ["https://www.ebags.com/brands"]
 
+    global choice
+
+    # running A-M or N-Z, memory can't take A-Z
+    choice = 0
+    while True:
+        to_do = input("Enter 1 for A-M or 2 or N-Z or 3 for just brands: ")
+        if to_do == "1":
+            choice = 1
+            break
+        elif to_do == "2":
+            choice = 2
+        elif to_do == "3":
+            choice = 3
+            break
+
+    # either yield the brands only or follow the links to further details
     def parse(self, response):
-        for href in response.xpath('//*[@class="mainCon"]/div[@class="brandListCon"]/div[@class="brandList4Col"]/a/@href'):
-           url = response.urljoin(href.extract())
-           yield scrapy.Request(url, callback=self.parse_dir_contents)
+        if choice == 3:
+            item = EbagsItem()
+            for sel in response.xpath('//*[@class="mainCon"]'):
+                brands = sel.xpath('//*[@class="mainCon"]/div[@class="brandListCon"]/div[@class="brandList4Col"]/a/text()').extract()
+                brands = [brand.strip() for brand in brands]
+                result = zip(brands)
+                for brand in result:
+                    item['brand'] = brand
+                    yield item                
+        else:
+            list_to_run = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+            for href in response.xpath('//*[@class="mainCon"]/div[@class="brandListCon"]/div[@class="brandList4Col"]/a/@href'):
+                if href.extract()[7] in list_to_run[0 + ((choice - 1)*14):13 + ((choice - 1)*13)]:
+                    url = response.urljoin(href.extract())
+                    print(url)
+                    yield scrapy.Request(url, callback=self.parse_dir_contents)
 
     def __init__(self):
-        self.driver = webdriver.Chrome("C:<path to file>/chromedriver_win32/chromedriver.exe")
+        self.driver = webdriver.Chrome("C:/Users/andrew/Downloads/chromedriver_win32/chromedriver.exe")
 
     def parse_dir_contents(self, response):
         count = 0
