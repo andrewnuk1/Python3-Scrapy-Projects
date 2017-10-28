@@ -4,6 +4,7 @@ import time
 from urllib.parse import urljoin
 from hungryhouse.items import HungryhouseItem
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from scrapy.http import TextResponse
 
 class HungryhouseSpider(scrapy.Spider):
@@ -37,11 +38,14 @@ class HungryhouseSpider(scrapy.Spider):
 
     # and now we are on the web page where the restaurants are listed
     # now we need to use Selenium to activate a javescript button to reveal all the page
-    def parse_dir_contents2(self,response):
+    def parse_dir_contents2(self,response):    
         self.driver.get(response.url)
-
+        
         # Pressing the "Show More" button until there are no more on the page to reveal all the page
+        # But first we need to scroll down to the bottom of the page to allow the "Show More" to work
         while True:
+            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(1) # waiting 1 seconds for the page to load fully
             next =self.driver.find_element_by_xpath('//*[@id="restsPages"]/a')
             try:
                 next.click()
