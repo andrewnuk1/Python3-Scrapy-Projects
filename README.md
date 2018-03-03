@@ -14,3 +14,5 @@ Selenium_example1.py is the Scrapy code i use where part of the webpage is dynam
 Selenium_example2.py is the Scrape i use where i need to deploy selenium to press a button on a webpage to reveal more and then use the revealed links to open new webpages to scrap.
 
 Selenium_example3.py is the same style as Selenium_example2.py
+
+asos.py is a standard style scrapy code for a project i am doing looking at Jeans, t-shirts, shoes, dresses
