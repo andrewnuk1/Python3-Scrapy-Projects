@@ -34,7 +34,10 @@ class HungryhouseSpider(scrapy.Spider):
            yield scrapy.Request(url2, callback=self.parse_dir_contents2)       
 
     def __init__(self):
-        self.driver = webdriver.Chrome("C:/Users/andrew/Downloads/chromedriver_win32/chromedriver.exe")
+        # you will need to determine the path to your chrome driver
+        # for Windows10 it is "C:/Users/username/Downloads/chromedriver_win32/chromedriver.exe"
+        self.driver = webdriver.Chrome("C:path-to-driver/chromedriver_win32/chromedriver.exe")
+            
 
     # and now we are on the web page where the restaurants are listed
     # now we need to use Selenium to activate a javescript button to reveal all the page
