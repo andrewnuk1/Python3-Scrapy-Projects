@@ -3,6 +3,7 @@ import time
 
 from BerkeleyHomes.items import BerkeleyHomesItem
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from scrapy.http import TextResponse
 
 class berkeleyhomesSpider(scrapy.Spider):
@@ -30,9 +31,12 @@ class berkeleyhomesSpider(scrapy.Spider):
     def parse_dir_contents(self, response):
         count = 0
         self.driver.get(response.url)
-        
-        # press the next page button if present and if scraped the first page already
+
+        # press the next page button if present and if scraped the first page already        
         while True:
+            body = self.driver.find_element_by_css_selector('body')
+            body.send_keys(Keys.PAGE_DOWN)
+            time.sleep(10)
             if count >0:
                 try:
                     next = self.driver.find_element_by_xpath('//ul[@class="pagination"]/li[@class="next"]/a')
@@ -43,7 +47,7 @@ class berkeleyhomesSpider(scrapy.Spider):
             else:
                 count = count + 1
 
-            time.sleep(10) # need to ensure entire page is loaded before scraping
+            time.sleep(10)  # need to ensure entire page is loaded before scraping
             response1 = TextResponse(url=response.url, body=self.driver.page_source, encoding='utf-8')
             item = BerkeleyHomesItem()
             for sel in response1.xpath('//*[@class="flexStretch"]'):
@@ -58,4 +62,3 @@ class berkeleyhomesSpider(scrapy.Spider):
                     item['plotname'] = plotname
                     item['plotprice'] = plotprice
                     yield item
-
