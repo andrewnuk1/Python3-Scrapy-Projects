@@ -6,11 +6,8 @@ from Persimmon.items import PersimmonItem
 class persimmonSpider(scrapy.Spider):
     name = "persimmon"
     allowed_domains = ["persimmonhomes.com"]
-    start_urls = [
-        "http://www.persimmonhomes.com/sitemap",        
-    ]
-
-
+    start_urls = ["http://www.persimmonhomes.com/sitemap",]
+    
     def parse(self, response):
         for href in response.xpath('//*[@class="contacts-item"]/ul/li/a/@href'):
            url = urljoin('http://www.persimmonhomes.com/',href.extract())
@@ -33,3 +30,4 @@ class persimmonSpider(scrapy.Spider):
                item['plotid'] = plotid
                item['plotprice'] = plotprice
                yield item
+
