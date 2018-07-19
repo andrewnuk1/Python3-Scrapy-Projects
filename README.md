@@ -9,10 +9,16 @@ Pipelines.py is the Scrapy Pipelines.py file which in my case allows the Spider 
 
 Standardcode.py is the standard style of Scrapy code i use where i can
 
+Standardcode_1.py gathers the data differently so as to avoid null values disrupting lists
+
+standardcode_regex_json.py accessees json data and uses regex to get the data
+
 Selenium_example1.py is the Scrapy code i use where part of the webpage is dynamic(?) hence we need to use selenium and a button to create a new part of the same webpage needs to be pressed
 
 Selenium_example2.py is the Scrape i use where i need to deploy selenium to press a button on a webpage to reveal more and then use the revealed links to open new webpages to scrap.
 
 Selenium_example3.py is the same style as Selenium_example2.py
+
+Selenium_example4.py is a standard use of selenium but uses more robust code to scrape the data
 
 asos.py is a standard style scrapy code for a project i am doing looking at Jeans, t-shirts, shoes, dresses
