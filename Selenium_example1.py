@@ -9,9 +9,7 @@ from scrapy.http import TextResponse
 class berkeleyhomesSpider(scrapy.Spider):
     name = "berkeleyhomes"
     allowed_domains = ["berkeleygroup.co.uk"]
-    start_urls = [
-        "http://www.berkeleygroup.co.uk/new-homes/developments-by-county/",        
-    ]
+    start_urls = ["http://www.berkeleygroup.co.uk/new-homes/developments-by-county/",]
 
     def parse(self, response):
         for href in response.xpath('//*/a[@class="button-dark-grey"]/@href'):
@@ -24,19 +22,24 @@ class berkeleyhomesSpider(scrapy.Spider):
            yield scrapy.Request(url1, callback=self.parse_dir_contents)
 
     def __init__(self):
-        # you will need to determine the path to your chrome driver
-        # for Windows10 it is "C:/Users/username/Downloads/chromedriver_win32/chromedriver.exe"
-        self.driver = webdriver.Chrome("C:path-to-driver/chromedriver_win32/chromedriver.exe")
+        try:
+            self.driver = webdriver.Chrome("C:/Users/xxxxxx/Downloads/chromedriver_win32/chromedriver.exe")
+        except:
+            self.driver = webdriver.Chrome("C:/Users/xxxxx/Downloads/chromedriver_win32/chromedriver.exe")
 
     def parse_dir_contents(self, response):
         count = 0
         self.driver.get(response.url)
 
-        # press the next page button if present and if scraped the first page already        
         while True:
-            body = self.driver.find_element_by_css_selector('body')
-            body.send_keys(Keys.PAGE_DOWN)
-            time.sleep(10)
+            try:
+                body = self.driver.find_element_by_css_selector('body')
+                body.send_keys(Keys.PAGE_DOWN)
+
+                time.sleep(10)
+            except:
+                break
+            
             if count >0:
                 try:
                     next = self.driver.find_element_by_xpath('//ul[@class="pagination"]/li[@class="next"]/a')
@@ -47,7 +50,7 @@ class berkeleyhomesSpider(scrapy.Spider):
             else:
                 count = count + 1
 
-            time.sleep(10)  # need to ensure entire page is loaded before scraping
+            time.sleep(10)
             response1 = TextResponse(url=response.url, body=self.driver.page_source, encoding='utf-8')
             item = BerkeleyHomesItem()
             for sel in response1.xpath('//*[@class="flexStretch"]'):
