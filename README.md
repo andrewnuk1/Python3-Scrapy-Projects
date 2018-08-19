@@ -17,6 +17,8 @@ standardcode_3.py is another example of standard Scrapy code that i need to upda
 
 standardcode_4.py is another example of standard Scrapy code that i need to update so as to avoid null values (none occured so far)
 
+Standardcode_5.py is an example of some standard Scrapy code i use that gathers the data differently so as to avoid null values disrupting lists.  BUT, the start_urls are very inefficient and so need more work done.  The list of branches is take from standardcode_2.py
+
 standardcode_regex_json.py accessees json data and uses regex to get the data
 
 Selenium_example1.py is the Scrapy code i use where part of the webpage is dynamic(?) hence we need to use selenium and a button to create a new part of the same webpage needs to be pressed
