@@ -6,14 +6,11 @@ from scrapy.http import TextResponse
 from selenium import webdriver
 
 class taylorwimpeySpider(scrapy.Spider):
-
-#    global choice
     
     name = "taylorwimpey"
     allowed_domains = ["taylorwimpey.co.uk"]
 
     start_urls = ["https://www.taylorwimpey.co.uk/sitemap"]
-
     
     
     def __init__(self):
@@ -70,5 +67,4 @@ class taylorwimpeySpider(scrapy.Spider):
            item['plotname'] = sel.xpath('.//div[@class="plots-list-card-details"]/div/text()').extract()
            #item['plotid'] = sel.xpath('//*[@id="maincontent_0_developmentBrochures_brochures"]/li/a/@href').re(r'(?<={)(.*?)(?=})')
            yield item
-
         
