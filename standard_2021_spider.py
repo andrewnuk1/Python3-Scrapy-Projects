@@ -7,12 +7,6 @@ class persimmonSpider(scrapy.Spider):
     name = "persimmon"
     allowed_domains = ["persimmonhomes.com"]
     start_urls = ["https://www.persimmonhomes.com/find-your-new-home"]
-#
-#    start_urls = ["https://www.persimmonhomes.com/new-homes/central/phoenix-wharf"]
-#    
-#    start_urls = ["https://www.persimmonhomes.com/new-homes/anglia/elm-farm/the-corfe/5-bedroom-detached-kaytimjuiq"]
-
-
 
     def parse(self, response):
         for href in response.xpath('//div[@class="accordion"]/div[@class="card"]/div/div[@class="card-body region-list"]/ul/li/a/@href'):
@@ -25,7 +19,6 @@ class persimmonSpider(scrapy.Spider):
            url = urljoin('http://www.persimmonhomes.com/',href.extract())
            #print url
            yield scrapy.Request(url, callback=self.parse_dir_contents)
-
 
     def parse_dir_contents(self, response):
         for sel in response.xpath('//div[@class="master-outer"]'):
@@ -44,4 +37,3 @@ class persimmonSpider(scrapy.Spider):
                item['plotid'] = plotid
                item['plotprice'] = plotprice
                yield item
-
